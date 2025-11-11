@@ -1,0 +1,6 @@
+email,companyName,hrName,position,industry,companyWebsite,companySize,location
+hr@techcorp.com,TechCorp Inc,Sarah Johnson,Software Engineer,Technology,https://techcorp.com,500-1000,San Francisco CA
+recruiting@startupxyz.com,StartupXYZ,Michael Chen,Full Stack Developer,SaaS,https://startupxyz.com,50-100,New York NY
+careers@bigcompany.com,BigCompany Ltd,Emily Rodriguez,Senior Backend Engineer,E-commerce,https://bigcompany.com,1000+,Austin TX
+jobs@innovateai.com,InnovateAI,David Kim,Machine Learning Engineer,AI/ML,https://innovateai.com,100-200,Seattle WA
+talent@greentech.com,GreenTech Solutions,Lisa Wang,DevOps Engineer,CleanTech,https://greentech.com,200-500,Boston MA
