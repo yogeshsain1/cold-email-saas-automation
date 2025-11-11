@@ -5,21 +5,27 @@ import { NextRequest } from 'next/server';
 import { headers } from "next/headers"
 import { db } from "@/db";
  
-export const auth = betterAuth({
+const authConfig: any = {
 	database: drizzleAdapter(db, {
 		provider: "sqlite",
 	}),
 	emailAndPassword: {    
 		enabled: true
 	},
-	socialProviders: {
-		google: {
-			clientId: process.env.GOOGLE_CLIENT_ID as string,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-		},
-	},
 	plugins: [bearer()]
-});
+};
+
+// Only add Google OAuth if credentials are provided
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+	authConfig.socialProviders = {
+		google: {
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+		},
+	};
+}
+
+export const auth = betterAuth(authConfig);
 
 // Session validation helper
 export async function getCurrentUser(request: NextRequest) {

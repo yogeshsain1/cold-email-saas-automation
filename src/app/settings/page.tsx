@@ -103,11 +103,6 @@ export default function SettingsPage() {
     }, 2000);
   };
 
-  const handleGoogleConnect = () => {
-    // Redirect to Google OAuth
-    window.location.href = "/api/auth/signin/google";
-  };
-
   const handleGmailQuickSetup = () => {
     // Pre-fill Gmail settings for manual setup
     setSmtpSettings({
@@ -120,7 +115,15 @@ export default function SettingsPage() {
       fromName: "",
     });
     setGmailQuickSetup(true);
-    toast.info("Gmail settings pre-filled! Enter your email and App Password.");
+    toast.success("Gmail settings loaded!", {
+      description: "Now enter your Gmail address and App Password below",
+      duration: 5000,
+    });
+    
+    // Scroll to the form
+    setTimeout(() => {
+      document.getElementById('username')?.focus();
+    }, 100);
   };
 
   return (
@@ -173,133 +176,123 @@ export default function SettingsPage() {
                 </p>
               </div>
 
-              {/* Quick Connect Options */}
-              <div className="mb-8 p-6 bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-primary" />
-                  Quick Connect (Recommended)
+              {/* Quick Gmail Setup */}
+              <div className="mb-8 p-6 bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-xl">
+                <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                  <Mail className="w-5 h-5 text-blue-600" />
+                  Quick Gmail Setup
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Button 
-                    onClick={handleGoogleConnect}
-                    variant="outline"
-                    className="h-auto py-4 flex items-center justify-center gap-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-2"
-                  >
-                    <FcGoogle className="w-6 h-6" />
-                    <div className="text-left">
-                      <div className="font-semibold">Connect with Google</div>
-                      <div className="text-xs text-muted-foreground">Use Gmail automatically (OAuth2)</div>
-                    </div>
-                  </Button>
-                  
-                  <Button 
-                    onClick={handleGmailQuickSetup}
-                    variant="outline"
-                    className="h-auto py-4 flex items-center justify-center gap-3 hover:bg-primary/5"
-                  >
-                    <Mail className="w-6 h-6 text-primary" />
-                    <div className="text-left">
-                      <div className="font-semibold">Gmail Manual Setup</div>
-                      <div className="text-xs text-muted-foreground">Use App Password (Traditional)</div>
-                    </div>
-                  </Button>
-                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Click the button below to auto-fill Gmail settings, then just enter your email and App Password.
+                </p>
+                <Button 
+                  onClick={handleGmailQuickSetup}
+                  size="lg"
+                  className="w-full md:w-auto gap-2 bg-blue-600 hover:bg-blue-700"
+                >
+                  <FcGoogle className="w-5 h-5" />
+                  Setup Gmail in 30 Seconds
+                </Button>
                 
-                {isGoogleConnected && (
+                {gmailQuickSetup && (
                   <div className="mt-4 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
                     <p className="text-sm text-green-700 dark:text-green-300 flex items-center gap-2">
                       <CheckCircle className="w-4 h-4" />
-                      Gmail connected successfully! Your emails will be sent via your Gmail account.
+                      Gmail settings pre-filled! Now just enter your email and{" "}
+                      <a 
+                        href="https://myaccount.google.com/apppasswords" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="underline font-semibold"
+                      >
+                        App Password
+                      </a>
                     </p>
                   </div>
                 )}
-
-                <div className="mt-4 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                  <p className="text-sm text-blue-700 dark:text-blue-300">
-                    💡 <strong>Tip:</strong> "Connect with Google" is the easiest way - just one click! 
-                    No need for App Passwords or manual configuration.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold">Manual SMTP Configuration</h3>
-                <p className="text-sm text-muted-foreground">Or configure any SMTP provider</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="provider">Provider</Label>
-                  <Input
-                    id="provider"
-                    placeholder="e.g., SendGrid, Mailgun"
-                    value={smtpSettings.provider}
-                    onChange={(e) => setSmtpSettings({ ...smtpSettings, provider: e.target.value })}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="host">SMTP Host</Label>
-                  <Input
-                    id="host"
-                    placeholder="e.g., smtp.sendgrid.net"
-                    value={smtpSettings.host}
-                    onChange={(e) => setSmtpSettings({ ...smtpSettings, host: e.target.value })}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="port">Port</Label>
-                  <Input
-                    id="port"
-                    type="number"
-                    placeholder="e.g., 587"
-                    value={smtpSettings.port}
-                    onChange={(e) => setSmtpSettings({ ...smtpSettings, port: e.target.value })}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
+                  <Label htmlFor="username">
+                    Your Gmail Address <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="username"
-                    placeholder="SMTP username"
+                    type="email"
+                    placeholder="youremail@gmail.com"
                     value={smtpSettings.username}
-                    onChange={(e) => setSmtpSettings({ ...smtpSettings, username: e.target.value })}
+                    onChange={(e) => {
+                      const email = e.target.value;
+                      setSmtpSettings({ 
+                        ...smtpSettings, 
+                        username: email,
+                        fromEmail: email // Auto-fill fromEmail
+                      });
+                    }}
+                    className={gmailQuickSetup ? "border-blue-500 border-2" : ""}
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Your Gmail address (e.g., john@gmail.com)
+                  </p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">
+                    Gmail App Password <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="password"
                     type="password"
-                    placeholder="SMTP password"
+                    placeholder="16-character password"
                     value={smtpSettings.password}
                     onChange={(e) => setSmtpSettings({ ...smtpSettings, password: e.target.value })}
+                    className={gmailQuickSetup ? "border-blue-500 border-2" : ""}
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Get it from:{" "}
+                    <a 
+                      href="https://myaccount.google.com/apppasswords" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      myaccount.google.com/apppasswords
+                    </a>
+                  </p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="fromEmail">From Email</Label>
+                  <Label htmlFor="fromName">
+                    Your Full Name <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="fromName"
+                    placeholder="John Doe"
+                    value={smtpSettings.fromName}
+                    onChange={(e) => setSmtpSettings({ ...smtpSettings, fromName: e.target.value })}
+                    className={gmailQuickSetup ? "border-blue-500 border-2" : ""}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    This will appear as the sender name
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="fromEmail">From Email (Auto-filled)</Label>
                   <Input
                     id="fromEmail"
                     type="email"
-                    placeholder="noreply@example.com"
                     value={smtpSettings.fromEmail}
-                    onChange={(e) => setSmtpSettings({ ...smtpSettings, fromEmail: e.target.value })}
+                    disabled
+                    className="bg-muted"
                   />
                 </div>
 
-                <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="fromName">From Name</Label>
-                  <Input
-                    id="fromName"
-                    placeholder="Your Company Name"
-                    value={smtpSettings.fromName}
-                    onChange={(e) => setSmtpSettings({ ...smtpSettings, fromName: e.target.value })}
-                  />
-                </div>
+                {/* Hidden fields - pre-filled for Gmail */}
+                <input type="hidden" value={smtpSettings.provider || "Gmail"} />
+                <input type="hidden" value={smtpSettings.host || "smtp.gmail.com"} />
+                <input type="hidden" value={smtpSettings.port || "587"} />
               </div>
 
               <div className="flex items-center gap-4 mt-8 pt-6 border-t border-border/50">

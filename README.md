@@ -20,49 +20,44 @@ A modern, powerful cold email automation platform built with Next.js 15, designe
 - 🚀 Startups building B2B relationships
 - 📣 Marketers running outreach campaigns
 
-## ⚡ Super Quick Start (3 Steps)
+## ⚡ Super Simple Setup (5 minutes)
 
-### 1. Install Dependencies
+### 1. Install & Run
 
 ```bash
 npm install
-```
-
-### 2. Setup Gmail (Choose One)
-
-#### Option A: One-Click OAuth2 (Recommended) 🌟
-
-1. Create Google Cloud project & OAuth credentials ([2-min guide](docs/EASY_GMAIL_SETUP.md))
-2. Add to `.env`:
-   ```bash
-   GOOGLE_CLIENT_ID=your-id.apps.googleusercontent.com
-   GOOGLE_CLIENT_SECRET=your-secret
-   ```
-3. In app Settings, click **"Connect with Google"** ✅
-
-#### Option B: Traditional App Password
-
-1. Click **"Gmail Manual Setup"** in Settings
-2. Enter email & App Password ([guide](docs/GMAIL_SETUP_GUIDE.md))
-
-### 3. Start Sending!
-
-```bash
 npm run dev
 ```
 
-Open http://localhost:3000 → Create template → Import contacts → Launch campaign!
+### 2. Get Gmail App Password
+
+1. Visit: https://myaccount.google.com/apppasswords
+2. Create password → Name it "Cold Email"
+3. Copy the 16-character password
+
+### 3. Configure in App
+
+1. Open http://localhost:3000
+2. Register/Login
+3. Go to **Settings**
+4. Click **"Setup Gmail in 30 Seconds"**
+5. Enter: Gmail address + App Password + Your name
+6. Save!
+
+### 4. Send Emails!
+
+Templates → Create → Email Lists → Upload CSV → Campaigns → Launch! 🚀
+
+**📖 Complete guide:** [SIMPLE_SETUP.md](SIMPLE_SETUP.md) (3 minutes read)
 
 ## 📚 Documentation
 
-| Guide | Description | Time |
-|-------|-------------|------|
-| [**Easy Gmail Setup**](docs/EASY_GMAIL_SETUP.md) | Quick OAuth2 setup | 10 min |
-| [**Gmail OAuth Guide**](docs/GMAIL_OAUTH_SETUP.md) | Detailed OAuth setup with troubleshooting | 15 min |
-| [**Traditional Gmail Setup**](docs/GMAIL_SETUP_GUIDE.md) | App Password method | 5 min |
-| [**Quick Start: Send Emails**](docs/QUICK_START_SEND_EMAILS.md) | Step-by-step email sending | 15 min |
-| [**Job Hunting Guide**](JOB_HUNTING_GUIDE.md) | Complete guide for job seekers | 20 min |
-| [**Email Templates**](docs/EMAIL_TEMPLATES_SAMPLES.md) | 5 ready-to-use templates | 5 min |
+| Guide | Description |
+|-------|-------------|
+| **[SIMPLE_SETUP.md](SIMPLE_SETUP.md)** ⭐ | **Start here! 3-step setup** |
+| [Email Templates](docs/EMAIL_TEMPLATES_SAMPLES.md) | 5 ready-to-use templates |
+| [Job Hunting Guide](JOB_HUNTING_GUIDE.md) | Complete workflow |
+| [Gmail Setup Details](docs/GMAIL_SETUP_GUIDE.md) | Detailed App Password guide |
 
 ## 🛠️ Tech Stack
 
