@@ -14,8 +14,10 @@ import {
   Shield, 
   Save,
   TestTube,
-  CheckCircle
+  CheckCircle,
+  Zap
 } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 
 export default function SettingsPage() {
@@ -37,6 +39,8 @@ export default function SettingsPage() {
 
   const [loading, setLoading] = useState(false);
   const [testingConnection, setTestingConnection] = useState(false);
+  const [isGoogleConnected, setIsGoogleConnected] = useState(false);
+  const [gmailQuickSetup, setGmailQuickSetup] = useState(false);
 
   useEffect(() => {
     async function fetchSettings() {
@@ -99,6 +103,26 @@ export default function SettingsPage() {
     }, 2000);
   };
 
+  const handleGoogleConnect = () => {
+    // Redirect to Google OAuth
+    window.location.href = "/api/auth/signin/google";
+  };
+
+  const handleGmailQuickSetup = () => {
+    // Pre-fill Gmail settings for manual setup
+    setSmtpSettings({
+      provider: "Gmail",
+      host: "smtp.gmail.com",
+      port: "587",
+      username: "",
+      password: "",
+      fromEmail: "",
+      fromName: "",
+    });
+    setGmailQuickSetup(true);
+    toast.info("Gmail settings pre-filled! Enter your email and App Password.");
+  };
+
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       <Sidebar />
@@ -147,6 +171,60 @@ export default function SettingsPage() {
                 <p className="text-muted-foreground">
                   Configure your SMTP server settings for sending emails
                 </p>
+              </div>
+
+              {/* Quick Connect Options */}
+              <div className="mb-8 p-6 bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-primary" />
+                  Quick Connect (Recommended)
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Button 
+                    onClick={handleGoogleConnect}
+                    variant="outline"
+                    className="h-auto py-4 flex items-center justify-center gap-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-2"
+                  >
+                    <FcGoogle className="w-6 h-6" />
+                    <div className="text-left">
+                      <div className="font-semibold">Connect with Google</div>
+                      <div className="text-xs text-muted-foreground">Use Gmail automatically (OAuth2)</div>
+                    </div>
+                  </Button>
+                  
+                  <Button 
+                    onClick={handleGmailQuickSetup}
+                    variant="outline"
+                    className="h-auto py-4 flex items-center justify-center gap-3 hover:bg-primary/5"
+                  >
+                    <Mail className="w-6 h-6 text-primary" />
+                    <div className="text-left">
+                      <div className="font-semibold">Gmail Manual Setup</div>
+                      <div className="text-xs text-muted-foreground">Use App Password (Traditional)</div>
+                    </div>
+                  </Button>
+                </div>
+                
+                {isGoogleConnected && (
+                  <div className="mt-4 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                    <p className="text-sm text-green-700 dark:text-green-300 flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4" />
+                      Gmail connected successfully! Your emails will be sent via your Gmail account.
+                    </p>
+                  </div>
+                )}
+
+                <div className="mt-4 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    💡 <strong>Tip:</strong> "Connect with Google" is the easiest way - just one click! 
+                    No need for App Passwords or manual configuration.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-lg font-semibold">Manual SMTP Configuration</h3>
+                <p className="text-sm text-muted-foreground">Or configure any SMTP provider</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

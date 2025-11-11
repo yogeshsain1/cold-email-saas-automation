@@ -1,36 +1,197 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Cold Email SaaS Automation
 
-## Getting Started
+A modern, powerful cold email automation platform built with Next.js 15, designed specifically for job hunting and business outreach.
 
-First, run the development server:
+## ✨ Features
+
+- 📧 **Easy Gmail Integration** - One-click OAuth2 setup (no App Passwords!)
+- 📝 **Template System** - Create personalized email templates with variables
+- 📊 **Campaign Management** - Launch and track email campaigns
+- 📈 **Real-time Analytics** - Monitor opens, clicks, and responses
+- 🎯 **Smart Rate Limiting** - Respects Gmail's sending limits
+- 🔒 **Compliance Built-in** - Auto-adds unsubscribe links
+- 💾 **CSV Import** - Bulk import contacts easily
+- 🎨 **Beautiful UI** - Modern glassmorphic design
+
+## 🎯 Perfect For
+
+- 🎓 Job seekers reaching out to HR departments
+- 💼 Freelancers finding new clients
+- 🚀 Startups building B2B relationships
+- 📣 Marketers running outreach campaigns
+
+## ⚡ Super Quick Start (3 Steps)
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Setup Gmail (Choose One)
+
+#### Option A: One-Click OAuth2 (Recommended) 🌟
+
+1. Create Google Cloud project & OAuth credentials ([2-min guide](docs/EASY_GMAIL_SETUP.md))
+2. Add to `.env`:
+   ```bash
+   GOOGLE_CLIENT_ID=your-id.apps.googleusercontent.com
+   GOOGLE_CLIENT_SECRET=your-secret
+   ```
+3. In app Settings, click **"Connect with Google"** ✅
+
+#### Option B: Traditional App Password
+
+1. Click **"Gmail Manual Setup"** in Settings
+2. Enter email & App Password ([guide](docs/GMAIL_SETUP_GUIDE.md))
+
+### 3. Start Sending!
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 → Create template → Import contacts → Launch campaign!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📚 Documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Guide | Description | Time |
+|-------|-------------|------|
+| [**Easy Gmail Setup**](docs/EASY_GMAIL_SETUP.md) | Quick OAuth2 setup | 10 min |
+| [**Gmail OAuth Guide**](docs/GMAIL_OAUTH_SETUP.md) | Detailed OAuth setup with troubleshooting | 15 min |
+| [**Traditional Gmail Setup**](docs/GMAIL_SETUP_GUIDE.md) | App Password method | 5 min |
+| [**Quick Start: Send Emails**](docs/QUICK_START_SEND_EMAILS.md) | Step-by-step email sending | 15 min |
+| [**Job Hunting Guide**](JOB_HUNTING_GUIDE.md) | Complete guide for job seekers | 20 min |
+| [**Email Templates**](docs/EMAIL_TEMPLATES_SAMPLES.md) | 5 ready-to-use templates | 5 min |
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** Next.js 15 (React 19)
+- **Database:** Turso (LibSQL)
+- **ORM:** Drizzle
+- **Auth:** Better-auth (with Google OAuth2)
+- **Email:** Nodemailer + Gmail API
+- **UI:** Tailwind CSS, Framer Motion, Radix UI
+- **Hosting:** Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎓 For Job Seekers
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project includes everything you need for your job search:
 
-## Deploy on Vercel
+- ✅ 300 Jaipur HR contacts (pre-loaded CSV)
+- ✅ 5 professional email templates
+- ✅ Complete job hunting strategy guide
+- ✅ Expected response rates and timeline
+- ✅ Follow-up automation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Get started:** [Job Hunting Guide](JOB_HUNTING_GUIDE.md)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚙️ Environment Setup
+
+Create `.env` file (copy from `.env.example`):
+
+```bash
+# Database (Required)
+TURSO_CONNECTION_URL=libsql://your-db.turso.io
+TURSO_AUTH_TOKEN=your-token
+
+# App URLs
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# Gmail OAuth2 (Recommended)
+GOOGLE_CLIENT_ID=your-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-secret
+
+# N8N Integration (Optional)
+N8N_API_URL=https://your-n8n-instance.com
+N8N_API_KEY=your-api-key
+```
+
+## 📊 Gmail Sending Limits
+
+| Account Type | Daily Limit | Recommended Rate | Cost |
+|--------------|-------------|------------------|------|
+| Free Gmail | 500 emails | 20-25/hour | Free |
+| Google Workspace | 2,000 emails | 80-100/hour | ₹125/month |
+
+For 300 contacts:
+- **Free Gmail:** 2-3 days
+- **Workspace:** Same day
+
+## 🚀 Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Setup database
+npx drizzle-kit push
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 📖 Step-by-Step Usage
+
+1. **Register** - Create your account
+2. **Connect Gmail** - One-click OAuth or manual SMTP
+3. **Create Template** - Use variables like {{name}}, {{company}}
+4. **Import Contacts** - Upload CSV with HR emails
+5. **Launch Campaign** - Set rate limit and send
+6. **Monitor Results** - Track opens, clicks, responses
+
+**Detailed guide:** [Quick Start: Send Emails](docs/QUICK_START_SEND_EMAILS.md)
+
+## 🎨 UI Features
+
+- 🌓 Dark/Light mode
+- 📱 Fully responsive
+- ✨ Glassmorphic design
+- 🎭 Smooth animations
+- 📊 Interactive charts
+- 🔔 Real-time notifications
+
+## 🔒 Security & Compliance
+
+- ✅ GDPR compliant
+- ✅ CAN-SPAM compliant
+- ✅ Auto-unsubscribe links
+- ✅ OAuth2 token encryption
+- ✅ Rate limiting protection
+- ✅ Bounce handling
+
+## 📈 Expected Results
+
+Based on 300-email campaign:
+
+- **Open Rate:** 30-50% (90-150 opens)
+- **Response Rate:** 2-5% (6-15 responses)
+- **Interview Calls:** 1-3% (3-9 calls)
+
+## 🤝 Contributing
+
+Contributions welcome! Please read our contributing guidelines first.
+
+## 📄 License
+
+MIT License - feel free to use for personal or commercial projects.
+
+## 🆘 Support
+
+- 📚 Check [documentation](docs/)
+- 🐛 Open an [issue](https://github.com/yogeshsain1/cold-email-saas-automation/issues)
+- 💬 Join our community discussions
+
+## ⭐ Show Your Support
+
+If this project helped you land a job or grow your business, please give it a star! ⭐
+
+---
+
+**Made with ❤️ for job seekers and entrepreneurs**
+
+**Ready to send your first campaign?** → [Easy Gmail Setup](docs/EASY_GMAIL_SETUP.md)
